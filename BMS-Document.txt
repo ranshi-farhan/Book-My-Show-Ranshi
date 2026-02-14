@@ -2,7 +2,7 @@
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 									Book My Show Clone App Deployment 
 													by
-												Kastro Kiran V
+												Ranshi Farhan Usman A K
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ****************************************************************************************************************************
 											PART I: Docker Deployment
@@ -100,7 +100,7 @@ eksctl version
 1.3.4. Create EKS Cluster
 Execute the below commands as separate set
 (a)
-eksctl create cluster --name=kastro-eks \
+eksctl create cluster --name=ranshi-eks \
                       --region=us-east-1 \
                       --zones=us-east-1a,us-east-1b \
                       --version=1.30 \
@@ -112,7 +112,7 @@ Goto EKS Console and verify the cluster.
 (b)
 eksctl utils associate-iam-oidc-provider \
     --region us-east-1 \
-    --cluster kastro-eks \
+    --cluster ranshi-eks \
     --approve
 
 The above command is crucial when setting up an EKS cluster because it enables IAM roles for service accounts (IRSA)
@@ -124,7 +124,7 @@ Without this, these services will not be able to access AWS resources securely.
 (c)
 Before executing the below command, in the 'ssh-public-key' keep the  '<PEM FILE NAME>' (dont give .pem. Just give the pem file name) which was used to create Jenkins Server
 
-eksctl create nodegroup --cluster=kastro-eks \
+eksctl create nodegroup --cluster=ranshi-eks \
                        --region=us-east-1 \
                        --name=node2 \
                        --node-type=t3.medium \
@@ -133,7 +133,7 @@ eksctl create nodegroup --cluster=kastro-eks \
                        --nodes-max=4 \
                        --node-volume-size=20 \
                        --ssh-access \
-                       --ssh-public-key=Kastro \
+                       --ssh-public-key=test \
                        --managed \
                        --asg-access \
                        --external-dns-access \
@@ -256,10 +256,27 @@ Configure the SonarQube server;
 Token: squ_69eb05b41575c699579c6ced901eaafae66d63a2
 
 3.3. Creation of Credentials
+Go to manage jenkins-->security-->credentials-->add credentials
+
+Add Sonar Credentials as a secret text and copy the token generated in sonarqube and name it as 'sonar-creds'
+Add Docker Credentials as username and password and name it as 'docker-creds'
+Add Email Credantials as well
 
 3.4. Tools Configuration
+Go to manage jenkins-->tools
+
+Add jdk as 'jdk17'
+Add NodeJS with node23 version as 'node23'
+Add maven as 'maven3'
+Add OWASP Dependency Check as 'DP-Check'
+Add Docker as 'docker'
 
 3.5 System Configuration in Jenkins
+Configure Sonar in Jenkins
+--Go to manage jenkins-->System-->Sonar Server with your Sonarqube URL and sonar creds generated before as 'sonar-server'
+
+Configure Jenkins in Sonar
+--Go to Administration-->Security-->Webhook   and create your webhook with jenkins URL <JENKINS_URL>/sonarqube-webhook/
 
 ************************************
 Step 4: Email Integration
@@ -298,6 +315,7 @@ pipeline {
     }
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
+        DOCKER_IMAGE = 'hypersranshi/bookmyshoe:v1'
     }
     stages {
         stage('Clean Workspace') {
@@ -307,7 +325,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/KastroVKiran/Book-My-Show.git'
+                git branch: 'main', url: 'https://github.com/ranshi-farhan/Book-My-Show-Ranshi.git'
                 sh 'ls -la'  // Verify files after checkout
             }
         }
@@ -354,10 +372,10 @@ pipeline {
                     withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
                         sh ''' 
                         echo "Building Docker image..."
-                        docker build --no-cache -t kastrov/bms:latest -f bookmyshow-app/Dockerfile bookmyshow-app
+                        docker build --no-cache -t ${DOCKER_IMAGE} -f bookmyshow-app/Dockerfile bookmyshow-app
 
                         echo "Pushing Docker image to registry..."
-                        docker push kastrov/bms:latest
+                        docker push ${DOCKER_IMAGE}
                         '''
                     }
                 }
@@ -371,7 +389,7 @@ pipeline {
                 docker rm bms || true
 
                 echo "Running new container on port 3000..."
-                docker run -d --restart=always --name bms -p 3000:3000 kastrov/bms:latest
+                docker run -d --restart=always --name bms -p 3000:3000 ${DOCKER_IMAGE}
 
                 echo "Checking running containers..."
                 docker ps -a
@@ -390,7 +408,7 @@ pipeline {
                 body: "Project: ${env.JOB_NAME}<br/>" +
                       "Build Number: ${env.BUILD_NUMBER}<br/>" +
                       "URL: ${env.BUILD_URL}<br/>",
-                to: 'kastrokiran@gmail.com',
+                to: 'ranshifarhanusmanak@gmail.com',
                 attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
         }
     }
@@ -434,7 +452,7 @@ sudo systemctl restart jenkins
 
 Switch to Jenkins user
 sudo -su jenkins
-aws eks update-kubeconfig --name kastro-eks --region us-east-1
+aws eks update-kubeconfig --name ranshi-eks --region us-east-1
 
 
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
@@ -450,9 +468,9 @@ pipeline {
 
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
-        DOCKER_IMAGE = 'kastrov/bms:latest'
-        EKS_CLUSTER_NAME = 'kastro-eks'
-        AWS_REGION = 'ap-northeast-1'
+        DOCKER_IMAGE = 'hypersranshi/bookmyshow:v1'
+        EKS_CLUSTER_NAME = 'ranshi-eks'
+        AWS_REGION = 'us-east-1'
     }
 
     stages {
@@ -464,7 +482,7 @@ pipeline {
 
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/KastroVKiran/Book-My-Show.git'
+                git branch: 'main', url: 'https://github.com/ranshi-farhan/Book-My-Show-Ranshi.git'
                 sh 'ls -la'  // Verify files after checkout
             }
         }
