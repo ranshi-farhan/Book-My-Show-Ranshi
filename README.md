@@ -1,81 +1,149 @@
-# 🚀 **DevOps Project: Book My Show App Deployment**  
+# 🎬 BookMyShow Clone – DevOps CI/CD Project  
 
-Welcome to the **Book My Show App Deployment** project! This project demonstrates how to deploy a **Book My Show-clone application** using modern DevOps tools and practices, following a **DevSecOps** approach.  
-
----
-
-## 🛠️ **Tools & Services Used**
-
-| **Category**       | **Tools**                                                                                                                                                                                                 |
-|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Version Control** | ![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)                                                                                                       |
-| **CI/CD**           | ![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=jenkins&logoColor=white)                                                                                                    |
-| **Code Quality**    | ![SonarQube](https://img.shields.io/badge/SonarQube-4E9BCD?style=flat-square&logo=sonarqube&logoColor=white)                                                                                              |
-| **Containerization**| ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)                                                                                                       |
-| **Orchestration**   | ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white)                                                                                          |
-| **Monitoring**      | ![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=flat-square&logo=prometheus&logoColor=white) ![Grafana](https://img.shields.io/badge/Grafana-F46800?style=flat-square&logo=grafana&logoColor=white) |
-| **Security**        | ![OWASP](https://img.shields.io/badge/OWASP-000000?style=flat-square&logo=owasp&logoColor=white) ![Trivy](https://img.shields.io/badge/Trivy-00979D?style=flat-square&logo=trivy&logoColor=white)         |
+👨‍💻 **Author:** Ranshi  
 
 ---
 
-## 🚦 **Project Stages**
+## 📌 Project Overview  
 
-### **Phase 1: Deployment to Docker Container**
-- Containerize the application using Docker.
-- Build and push Docker images to a container registry.
-- Run the application in a Docker container.
+This project demonstrates an end-to-end DevOps implementation of a BookMyShow Clone application using modern DevOps tools and AWS cloud services.
 
-### **Phase 2: Deployment to EKS Cluster with Monitoring**
-- Deploy the application to an **Amazon EKS (Elastic Kubernetes Service)** cluster.
-- Set up **Prometheus** and **Grafana** for monitoring and visualization.
-- Implement **Trivy** for vulnerability scanning and **OWASP** for security best practices.
+The application is containerized using Docker, deployed through a Jenkins CI/CD pipeline, pushed to Docker Hub, deployed on AWS EKS (Kubernetes), and monitored using Prometheus and Grafana.
+
+This project follows a real-world production-style deployment approach.
 
 ---
 
-## 📂 **Code Repository**
-Explore the code and contribute to the project:  
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KastroVKiran/Book-My-Show.git)
+## 🏗️ Architecture Overview  
+
+- Source Code Management – GitHub  
+- CI/CD – Jenkins  
+- Code Quality – SonarQube  
+- Security Scanning – Trivy  
+- Containerization – Docker  
+- Container Registry – Docker Hub  
+- Orchestration – AWS EKS  
+- Monitoring – Prometheus & Grafana  
+- Notifications – Email Integration  
 
 ---
 
-## 📹 **Project Video**
-Watch the step-by-step deployment process:  
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/hBGVwa8MY4A)
+## 🚀 Key Features  
+
+✔ Automated CI/CD Pipeline  
+✔ SonarQube Code Quality Analysis  
+✔ Trivy Security Scanning  
+✔ Docker Image Build & Push  
+✔ Kubernetes Deployment on AWS EKS  
+✔ Email Notifications (Success/Failure)  
+✔ Monitoring with Prometheus  
+✔ Visualization with Grafana  
 
 ---
 
-## 📺 **Docker Playlist**
-Learn more about Docker with this playlist:  
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/playlist?list=PLs-PsDpuAuTeNx3OgGQ1QrpNBo-XE6VBh)
+## 🐳 Part 1 – Docker Based Deployment  
+
+- Launch Ubuntu EC2 Instance  
+- Install Jenkins, Docker, and Trivy  
+- Configure SonarQube (Docker container)  
+- Create Jenkins Pipeline  
+- Build & Push Docker Image  
+- Deploy Application using Docker  
+
+Access Application:
+http://<public-ip>:3000
 
 ---
 
-## 🚀 **Other DevOps Projects**
+## ☸ Part 2 – Kubernetes Deployment (AWS EKS)  
 
-| **Project**                                | **Video Link**                                                                                   |
-|--------------------------------------------|--------------------------------------------------------------------------------------------------|
-| **SWIGGY App Project**                     | [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://youtu.be/x55z7rk0NAU) |
-| **Zomato App Project**                     | [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://youtu.be/GyoI6-I68aQ) |
-| **Jenkins + Terraform + EKS Integration**  | [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=sonarqube&logoColor=white)](https://youtu.be/DV79JyFbQE8) |
-| **AWS 3 Tier Architecture Project**        | [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=nexus&logoColor=white)](https://youtu.be/Oj-Hr_aulKA) |
-
----
-
-## 🤝 **Connect with Me**
-
-Let's connect and discuss DevOps!  
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/kastro-kiran/)  
-[![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://chat.whatsapp.com/EGw6ZlwUHZc82cA0vXFnwm)
+- Create IAM User with required policies  
+- Install AWS CLI, kubectl, eksctl  
+- Create EKS Cluster  
+- Configure Jenkins with AWS credentials  
+- Deploy application using Kubernetes manifests  
+- Expose application via Service  
 
 ---
 
-## 📣 **Feedback Request**
+## 📊 Monitoring Setup  
 
-After deploying the app, share your feedback on LinkedIn! Tag me and include the project link to help spread the word.  
+### 🔹 Prometheus
+- Installed on Monitoring Server  
+- Scrapes:
+  - Node Exporter metrics
+  - Jenkins metrics
+
+### 🔹 Grafana
+- Connected with Prometheus Data Source  
+- Imported Dashboards:
+  - Node Exporter Dashboard
+  - Jenkins Performance Dashboard  
+
+Access Grafana:
+http://<monitoring-server-ip>:3000
 
 ---
 
-## 🎉 **Happy Learning!**  
+## 📧 Email Integration  
 
-**KASTRO KIRAN V**
+- Configured Gmail App Password  
+- Email notifications for:
+  - Build Success  
+  - Build Failure  
+
+---
+
+## 🛠️ Tools & Technologies Used  
+
+- AWS EC2  
+- AWS EKS  
+- Jenkins  
+- Docker  
+- Kubernetes  
+- SonarQube  
+- Trivy  
+- Prometheus  
+- Grafana  
+- NodeJS  
+
+---
+
+## 📂 Pipeline Stages  
+
+1. Clean Workspace  
+2. Checkout from Git  
+3. SonarQube Analysis  
+4. Quality Gate  
+5. Install Dependencies  
+6. Trivy Scan  
+7. Docker Build & Push  
+8. Deploy to Docker / EKS  
+9. Email Notification  
+
+---
+
+## 🎯 Learning Outcomes  
+
+- Hands-on CI/CD pipeline implementation  
+- Secure container image practices  
+- Kubernetes deployment in AWS  
+- Monitoring and observability setup  
+- Production-style DevOps workflow  
+
+---
+
+## 🧹 Cleanup  
+
+After project completion, delete:
+- EC2 Instances  
+- EKS Cluster  
+- IAM Users  
+- Security Groups  
+- Monitoring Resources  
+
+---
+
+## ⭐ Conclusion  
+
+This project demonstrates a complete DevOps lifecycle implementation from code commit to production deployment and monitoring using industry-standard tools.
